@@ -18,4 +18,23 @@ class BasicController extends AbstractController
             'page_name' => $title,
         ]);
     }
+    // contact page
+    /**
+     * @Route("/contact", name="contact")
+     */
+
+    public function contact():Response
+    {
+        $title = "Contact Page";
+        $name = "John Tester";
+        $email = "john@tester.gmail.com";
+        $phone = "123-456-789";
+
+        return $this->render('basic/contact.html.twig' , [
+            'title' => $title,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+        ]);
+    }
 }
