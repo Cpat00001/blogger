@@ -37,4 +37,16 @@ class BasicController extends AbstractController
             'phone' => $phone,
         ]);
     }
+    // aboutme page
+    /**
+     * @Route("/aboutme", name="aboutme")
+     */
+    public function aboutme(){
+
+        $title = "About Me";
+
+        return $this->render('basic/aboutme.html.twig' , [
+            'title' => $title,
+        ]);
+    }
 }

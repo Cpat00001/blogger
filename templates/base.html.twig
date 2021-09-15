@@ -10,6 +10,7 @@
             {# add bootstrap CDN #}
             {# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> #}
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+            <link rel="stylesheet" href="/css/styling.css">
         {% endblock %}
 
         {% block javascripts %}
@@ -26,16 +27,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="{{path("welcome")}}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blogi</a>
+                            <a class="nav-link" href="{{path('show_articles')}}">Blogi</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ path('contact')}}" class="nav-link" >Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About Me</a>
+                            <a class="nav-link" href="{{path('aboutme')}}">About Me</a>
                         </li>
                     </ul>
                 </div>

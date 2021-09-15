@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+<div class="col-12 subpage_title">
+    <h2>List of articles</h2>
+</div>
+
+<div class="row">
+    {% for article in articles %}
+        <div class="col-sm-12 article_list_item">
+            <h4>{{ article.name}}</h4>
+            <img src="{{article.image}}">
+            <p>{{ article.description}}</p>
+            <p><b>Author: {{article.author}}</b></p>
+            <p>Created: {{ article.created | date("d/m/Y")}}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

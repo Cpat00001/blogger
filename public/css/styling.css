@@ -1,0 +1,30 @@
+/* contact page */
+#c1 {
+  background-color: pink;
+}
+.gmap {
+  margin-top: 3em;
+}
+.mail {
+  padding: 1em;
+  border: 2px solid grey;
+  box-shadow: 5px 5px 5px grey;
+}
+.contactform {
+  border: 2px solid grey;
+  min-height: 300px;
+  background-color: grey;
+}
+/* about me page */
+.aboutme {
+  min-height: 500px;
+  background-color: pink;
+}
+.subpage_title {
+  margin-top: 1em;
+}
+/* list of articles */
+.article_list_item {
+  border: 1px solid grey;
+  padding: 1em;
+}
