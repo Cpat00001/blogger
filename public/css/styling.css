@@ -28,3 +28,24 @@
   border: 1px solid grey;
   padding: 1em;
 }
+a {
+  text-decoration: none;
+}
+a h2#articleTitle {
+  color: white;
+}
+
+/* individual article */
+.indBottom {
+  /* background-color: rgb(29, 218, 70); */
+  padding: 2%;
+  margin-top: 1%;
+}
+/* .row.indBottom {
+  padding-right: 5px;
+  padding-left: 5px;
+} */
+.goBack {
+  padding: 2%;
+  color: white;
+}

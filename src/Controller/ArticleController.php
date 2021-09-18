@@ -32,10 +32,10 @@ class ArticleController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $article = new Article();
-        $article->setName('Article One');
+        $article->setName('Article Three');
         $article->setDescription('some long text here for article one');
-        $article->setAuthor('Roman Bregovic');
-        $article->setImage('public/images/img1.jpg');
+        $article->setAuthor('Adam Lot');
+        $article->setImage('images/img3.jpg');
         $article->setCreated(new \DateTime());
 
         // tell Doctrine you want to (eventually) save the Product (no queries yet)
@@ -44,5 +44,20 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         return new Response('Saved new article with id '.$article->getId());
+    }
+     /**
+     * @Route("/blogpost/{id}/{slug}", name="showIndividual")
+     */
+    public function showInd(int $id , string $slug){
+        $repository =  $this->getDoctrine()->getRepository(Article::class);
+        // search article by unique ID and Title/Name
+        $article = $repository->findOneBy([
+            'id' => $id,
+            'name' => $slug
+        ]);
+        // return new Response('Requested article: ' . $article->getId() . ' and name: ' . $article->getName());
+        return $this->render('article/individual.html.twig',[
+            'article' => $article,
+        ]);
     }
 }
