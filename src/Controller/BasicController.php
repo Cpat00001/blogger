@@ -18,6 +18,18 @@ class BasicController extends AbstractController
             'page_name' => $title,
         ]);
     }
+     // aboutme page
+    /**
+     * @Route("/logined", name="logined")
+     */
+    public function logined(){
+
+        $title = "Welcome Logined";
+
+        return $this->render('basic/aboutme.html.twig' , [
+            'title' => $title,
+        ]);
+    }
     // contact page
     /**
      * @Route("/contact", name="contact")
