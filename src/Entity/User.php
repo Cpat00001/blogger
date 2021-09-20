@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -21,6 +23,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
@@ -32,11 +38,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 20,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $username;
 

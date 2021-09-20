@@ -39,11 +39,21 @@
                             <a class="nav-link" href="{{path('aboutme')}}">About Me</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_login')}}">Join Us</a>
+                            <a class="nav-link" href="{{path('app_login')}}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('registration')}}">Join Us</a>
                         </li>
                     </ul>
                 </div>
             </nav>
+        <div class="container" style="margin-top:10px;broder:1px solid black;">
+            {% for message in app.flashes('registered')%}
+                <div class="alert alert-success" role="alert">
+                    <b>{{ message }}</b>
+                </div>
+            {% endfor %}
+        </div>
 
         <div class="container">
             {% block body %}{% endblock %}
