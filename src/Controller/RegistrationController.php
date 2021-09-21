@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +23,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/registration", name="registration")
      */
-    public function register (Request $request): Response
+    public function register (Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
 
@@ -45,6 +47,8 @@ class RegistrationController extends AbstractController
                 if($form->isSubmitted() && $form->isValid()){
                     // $form->getData() holds the submitted values
                     $user = $form->getData();
+                    //var_dump($user->password);
+                    $user->setPassword($passwordHasher->hashPassword($user,$user->getPassword()));
                     // save user into DB
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
