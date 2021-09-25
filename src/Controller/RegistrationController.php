@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+// use App\Form\Type\RegistrationType;
+
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,7 +30,7 @@ class RegistrationController extends AbstractController
         $user = new User();
 
         $form = $this->createFormBuilder($user)
-                ->add('username' , TextType::class)
+                ->add('username' , TextType::class, [ 'attr' => ['id' => 'regForm_username']])
                 ->add('email', EmailType::class)
                 ->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
@@ -41,7 +43,7 @@ class RegistrationController extends AbstractController
                 ->add('submit', SubmitType::class,[
                     'attr' => ['class' => 'Register']
                 ])
-                ->getForm();
+               ->getForm();
 
                 $form->handleRequest($request);
                 if($form->isSubmitted() && $form->isValid()){
@@ -69,5 +71,9 @@ class RegistrationController extends AbstractController
             'form' => $form->createView(),
             'title' => $title,
         ]);
+        // return $this->renderForm('registration/registrationForm.html.twig', [
+        //     'form' => $form,
+        //     'title' => $title,
+        // ]);
     }
 }

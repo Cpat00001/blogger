@@ -38,12 +38,24 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('aboutme')}}">About Me</a>
                         </li>
+                        {% if is_granted('ROLE_USER')%}
+
+                        {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('app_login')}}">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('registration')}}">Join Us</a>
                         </li>
+                        {% endif %}                        
+                        {% if is_granted('ROLE_USER') %}
+                             <li class="nav-item">
+                            <a class="nav-link" href="{{path('restricted_content')}}">Restricted Content</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
