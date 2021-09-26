@@ -54,7 +54,7 @@ class ArticleController extends AbstractController
         $article = $repository->findOneBy([
             'id' => $id,
             'name' => $slug
-        ]);
+        ]); 
         // return new Response('Requested article: ' . $article->getId() . ' and name: ' . $article->getName());
         return $this->render('article/individual.html.twig',[
             'article' => $article,

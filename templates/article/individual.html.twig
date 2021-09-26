@@ -2,22 +2,49 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{# {{ dump(article) }} #}
-<h1>{{article.name}}</h1>
-<div class="row">
-    <div class="col-sm-6">
-        <img src="{{asset(article.image)}}" width=100%; height=auto;>
+    {# {{ dump(article) }} #}
+    
+    <h1>{{article.name}}</h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="{{asset(article.image)}}" width=100%; height=auto;>
+        </div>
+        <div class="col-sm-6">
+            <p>{{article.description}}</p>
+        </div>
     </div>
-    <div class="col-sm-6">
-        <p>{{article.description}}</p>
+    <div class="row indArticelDetails">
+        <div class="col-sm-8 indBottom">Writen by : {{article.author}}</div>
+        <div class="col-sm-4 indBottom">Created on : {{article.created | date("d/m/Y")}}</div>
     </div>
-</div>
-<div class="row indArticelDetails">
-    <div class="col-sm-8 indBottom">Writen by : {{article.author}}</div>
-    <div class="col-sm-4 indBottom">Created on : {{article.created | date("d/m/Y")}}</div>
-</div>
-<div class="goBack bg-dark">
-    <a href="{{path('show_articles')}}"><h5>Go back to articles list >>></h5></a>
-</div>
+
+    {# add comment section #}
+    <div class="container comment_section">
+        {% if is_granted('ROLE_USER')%}
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>You can add a comment:</h4>                
+                </div> 
+                <div>
+                    <h5>Comment form</h5>
+                    {{ render(controller('App\\Controller\\CommentController::commentForm')) }}
+                </div>  
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4>Please Login to add a comment:</h4>                
+                </div>
+                <div class="col-sm-6">
+                     <a href="{{path('app_login')}}">Go to login Page</a>                  
+                </div>    
+            </div>
+        {% endif %}
+    </div>
+
+    {# go back to blogs list #}
+    <div class="goBack bg-dark">
+        <a href="{{path('show_articles')}}"><h5>Go back to articles list >>></h5></a>
+    </div>
 
 {% endblock %}
