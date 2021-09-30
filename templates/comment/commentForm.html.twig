@@ -3,11 +3,14 @@
         <div class="row">
             <div class="col-sm-12">
                 {# {{ dump(commentForm) }} #}
-                {{ commentForm }}
+                <h5>{{ commentForm }}</h5>
+                <br>
+                {{ dump(users) }}
+                <br>
+                 {# {{ form }}  #}
             </div>
             <div class="col-sm-12">
-                {# {{ form  }} #}
-                <h5>CommentForm will be here</h5>
+                {{ form(form) }}
             </div>
         </div>
         

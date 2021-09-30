@@ -72,4 +72,9 @@ class Comment
 
         return $this;
     }
+      // convert Object to string
+      public function __toString()
+      {
+          return $this->username;
+      }
 }

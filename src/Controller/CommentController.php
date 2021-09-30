@@ -8,6 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,28 +20,36 @@ class CommentController extends AbstractController
     /**
     * @Route("/comment", name="comment")
     */
-    public function commentForm(Request $request): Response
+    public function commentForm(UserRepository $userRepository, Request $request): Response
     {
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findAll();
+
+
         $comment = new Comment();
 
         $form = $this->createFormBuilder($comment)
-            ->add('comment', TextType::class)
-            ->add('username', TextType::class)
-            ->add('added', DateType::class)
+            ->add('comment', TextType::class, [
+                'attr' => ['style' => 'height: 200px', 'required' => true,]
+            ])
+            ->add('username', TextType::class,[
+                'data' => 'session user',
+                'disabled' => true,
+            ])
+            // ->add('added', DateType::class)
             ->add('submit', SubmitType::class,[
                 'attr' => ['class' => 'Add Comment']
             ])
            ->getForm();
+        //var_dump($form);
 
-        $commentForm = "Join the discussion, add your opinion";
+        $commentForm = "Comment Form";
         return $this->render('comment/commentForm.html.twig', [
             'commentForm' => $commentForm,
-            'form' => $form,
+            'form' => $form->createView(),
+            'users' => $users,
+            //'username' => $username,
+            // 'com' => $comment,
         ]);
     }
-    // convert Object to string
-    // public function __toString()
-    // {
-    //     return $this->getForm();
-    // }
 }
