@@ -32,6 +32,11 @@ class Comment
      */
     private $added;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $articleID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,5 +81,17 @@ class Comment
       public function __toString()
       {
           return $this->username;
+      }
+
+      public function getArticleID(): ?int
+      {
+          return $this->articleID;
+      }
+
+      public function setArticleID(int $articleID): self
+      {
+          $this->articleID = $articleID;
+
+          return $this;
       }
 }

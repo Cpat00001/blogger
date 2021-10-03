@@ -1,15 +1,8 @@
 {% block body %}
     <div>
         <div class="row">
-            {# show flashMessage 'success' #}
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
             <div class="col-sm-12">
-                {# {{ dump(commentForm) }} #}
-                <h5>{{ commentForm }}</h5>
+                {# <h5>{{ commentForm }}</h5> #}
                 <br>
                  {# {{ form }}  #}
             </div>

@@ -86,5 +86,12 @@ a h2#articleTitle {
   margin-bottom: 2%;
   padding: 10px;
   background-color: rgb(218, 216, 216);
-  box-shadow: 5px 5px 5px grey;
+  box-shadow: 5px 5px 5px rgb(206, 203, 203);
+}
+.user_comment {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 10px;
+  background-color: rgb(241, 234, 234);
+  box-shadow: 1px 1px 1px grey;
 }

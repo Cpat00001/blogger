@@ -23,6 +23,12 @@
         {% if is_granted('ROLE_USER')%}
             <div class="row">
                 <div class="col-sm-12">
+                    {# show flashMessage 'success' #}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     <h4>You can add a comment:</h4>                
                 </div> 
                 <div>
@@ -33,13 +39,45 @@
         {% else %}
             <div class="row">
                 <div class="col-sm-6">
-                    <h4>Please Login to add a comment:</h4>                
+                    <p class="fw-5">Please Login to add a comment:</p>                
                 </div>
                 <div class="col-sm-6">
                      <a href="{{path('app_login')}}">Go to login Page</a>                  
                 </div>    
             </div>
         {% endif %}
+    </div>
+    <div class="comments_container">
+        {% if is_granted('ROLE_USER') %}
+                <div class="row">
+                    {% for comment in comments %}
+                    <div class="user_comment">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="fw-bold">Author : {{ comment.username}}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    {# <p>Date {{ comment.added | date('d-m-Y')}}</p> #}
+                                    <p>Date {{ comment.added | format_datetime()}}</p>
+                                    
+                                </div>
+                                <div class="col-sm-12">
+                                    <p>Comment text: {{ comment.comment }}</p>
+                                </div>
+                            </div>                   
+                     </div>
+                    {% endfor %}
+                </div>
+        {% else %}
+             <div class="row">
+                <div class="col-sm-12">
+                    <p class="fw-5 text-center">If you would like to see comments, you need to be loginned</p>              
+                </div>
+                {# <div class="col-sm-6">
+                     <a href="{{path('app_login')}}">Go to login Page</a>                  
+                </div>     #}
+            </div>
+        {% endif%}
     </div>
 
     {# go back to blogs list #}
