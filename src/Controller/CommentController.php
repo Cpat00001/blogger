@@ -19,6 +19,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CommentController extends AbstractController
 {
+      //edit comment
+     /**
+     * @Route("/comment/{id}", name="comment_edit")
+     */ 
+    public function showInd(int $id): Response
+    {
+        $comment = $this->getDoctrine()
+                   ->getRepository(Comment::class)
+                   ->find($id);
+        if(!$comment){
+            throw $this->createNotFoundException(
+                'No comment found with ' .$id
+            );
+        }
+        return new Response('Change comment and save changes : ' .$comment->getComment());
+    }
     /**
     * @Route("/comment", name="comment")
     */
@@ -75,4 +91,5 @@ class CommentController extends AbstractController
 
         // return new Response('dzieki za comment');
     }
+    
 }

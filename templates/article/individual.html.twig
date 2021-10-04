@@ -64,7 +64,27 @@
                                 <div class="col-sm-12">
                                     <p>Comment text: {{ comment.comment }}</p>
                                 </div>
-                            </div>                   
+                            </div>
+                             {# @@@@@@@@@@@@@@ buttons edit/delete @@@@@@@@@@@@@@@@@@  #}
+                            {# if logged User is the same as CommentUser 
+                            then show button to Edit and Delete his/hercomment #}
+                            {% if (userName)  == (comment.username) %}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="{{path('comment_edit' , {id: comment.id})}}">
+                                            <button type="button" class="btn btn-light">
+                                                Edit Comment
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-outline-danger">Delete Comment</button>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <p> ________________________________________________________________________</p>
+                            {% endif %} 
+                        {# @@@@@@@@@@@@@@@@@@ end of button edit/delete @@@@@@@@@@@@@@@@@@@ #}
                      </div>
                     {% endfor %}
                 </div>

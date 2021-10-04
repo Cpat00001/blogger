@@ -124,11 +124,17 @@ class ArticleController extends AbstractController
                     ->findBy([
                         'articleID' => $articleID
                     ]);
-        // dd($comments);
+        //dd($comments);
+        $userName = $user->getUsername();
+        $commentAuthor = $comment->getUsername();
+        
+        //var_dump($userName);
+
         // return new Response('Requested article: ' . $article->getId() . ' and name: ' . $article->getName());
         return $this->render('article/individual.html.twig',[
             'article' => $article,
             'comments' => $comments,
+            'userName' => $userName,
         ]);
     }
 }
