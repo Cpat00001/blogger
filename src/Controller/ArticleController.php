@@ -125,8 +125,15 @@ class ArticleController extends AbstractController
                         'articleID' => $articleID
                     ]);
         //dd($comments);
-        $userName = $user->getUsername();
-        $commentAuthor = $comment->getUsername();
+        //check if user il loggedIn if yes -> check who is the current user(is it the same as commentAuthor)
+       $hasAccess = $this->isGranted('ROLE_USER');
+       if($hasAccess){
+            $userName = $user->getUsername();
+            $commentAuthor = $comment->getUsername();
+       }else{
+           $userName = 'annonymous';
+       }
+        
         
         //var_dump($userName);
 

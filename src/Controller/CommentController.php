@@ -23,7 +23,7 @@ class CommentController extends AbstractController
      /**
      * @Route("/comment/{id}", name="comment_edit")
      */ 
-    public function showInd(int $id): Response
+    public function showInd(int $id , Request $request, UserInterface $user): Response
     {
         $comment = $this->getDoctrine()
                    ->getRepository(Comment::class)
@@ -33,7 +33,32 @@ class CommentController extends AbstractController
                 'No comment found with ' .$id
             );
         }
-        return new Response('Change comment and save changes : ' .$comment->getComment());
+        $currentUsername = $user->getUserIdentifier();
+    // dd($comment->getId());
+    $cId = $comment->getId();
+        // //build a form
+        $form = $this->createFormBuilder($comment)
+            ->add('comment', TextareaType::class, [
+                'attr' => ['style' => 'height: 200px; width: 80%',  'required' => true,]
+            ])
+            ->add('username', TextType::class,[
+                'data' => $currentUsername,
+                'disabled' => true,
+            ])
+            ->add('Save_changes', SubmitType::class,[
+                'attr' => ['style' => 'width:100%;']
+            ])
+            ->add('Delete_Comment', SubmitType::class,[
+                'attr' => ['style' => 'background-color:#dc3545;width:100%;'],
+            ])
+            ->getForm();
+            
+        // return new Response('Change comment and save changes : ' .$comment->getComment());
+        return $this->render('comment/editComment.html.twig',[
+            // 'comment_txt' => $comment->getComment(),
+            'form' => $form->createView(),
+            'comment' => $comment,
+        ]);
     }
     /**
     * @Route("/comment", name="comment")
