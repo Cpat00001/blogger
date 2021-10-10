@@ -3,6 +3,13 @@
 
 {% block body %}
 <h5>Edit and change your comment then save</h5>
+{% for label , messages in app.flashes(['success','danger']) %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
 {# {{ comment_txt }} #}
 {{ form(form) }}
 {# {{ dump(comment) }} #}

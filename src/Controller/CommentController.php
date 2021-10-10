@@ -21,7 +21,7 @@ class CommentController extends AbstractController
 {
       //edit comment
      /**
-     * @Route("/comment/{id}", name="comment_edit")
+     * @Route("/comment/edit/{id}", name="comment_edit")
      */ 
     public function showInd(int $id , Request $request, UserInterface $user): Response
     {
@@ -48,10 +48,27 @@ class CommentController extends AbstractController
             ->add('Save_changes', SubmitType::class,[
                 'attr' => ['style' => 'width:100%;']
             ])
-            ->add('Delete_Comment', SubmitType::class,[
-                'attr' => ['style' => 'background-color:#dc3545;width:100%;'],
-            ])
+            // ->add('Delete_Comment', SubmitType::class,[
+            //     'attr' => ['style' => 'background-color:#dc3545;width:100%;'],
+            // ])
             ->getForm();
+
+            //connect to DB + proceed form and passed data
+            $entityManager = $this->getDoctrine()->getManager();
+            $form->handleRequest($request);
+            if($form->isSubmitted()&& $form->isValid()){
+                $form->getData();
+                $comment = $form->getData();
+
+                // var_dump($comment);
+                $entityManager->persist($comment);
+                $entityManager->flush();
+
+                //show confirmation msg
+                $this->addFlash('success','Your comment changes have been saved');
+            }
+            
+
             
         // return new Response('Change comment and save changes : ' .$comment->getComment());
         return $this->render('comment/editComment.html.twig',[
@@ -115,6 +132,24 @@ class CommentController extends AbstractController
         ]);
 
         // return new Response('dzieki za comment');
+    }
+    // delete comment from DB
+    /**
+     * @Route("comment/delete/{id}", name="delete_comment")
+     */
+    public function deleteComment(int $id):Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $comment = $entityManager->getRepository(Comment::class)->find($id);
+        var_dump($comment);
+        $commentID = $comment->getId();
+        $entityManager->remove($comment);
+        //$entityManager->flush();
+
+        //redirect to IndividualComment
+        return $this->redirectToRoute('comment_edit', array('id' => $commentID));
+         //return new Response('You want to delete comment ' .$comment->getId());
+        $this->addFlash('deleted','Your comment was deleted sucessfully');
     }
     
 }

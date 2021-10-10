@@ -78,7 +78,10 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button type="button" class="btn btn-outline-danger">Delete Comment</button>
+                                        {# pass comment Id on button and delete selected comment #}
+                                        <a href="{{path('delete_comment', {id: comment.id})}}">
+                                            <button type="button" class="btn btn-outline-danger">Delete Comment</button>
+                                        </a>
                                     </div>
                                 </div>
                             {% else %}
