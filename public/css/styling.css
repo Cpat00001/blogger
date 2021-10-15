@@ -1,3 +1,35 @@
+/* homePage */
+.glowingBackground {
+  background-color: black;
+  width: 100%;
+  min-height: 300px;
+  margin-top: 1%;
+  color: white;
+  text-align: center;
+}
+.glowingBackground:hover {
+  background-color: black;
+  width: 100%;
+  min-height: 300px;
+  margin-top: 1%;
+  color: white;
+  text-align: center;
+  border-left: 40px solid red;
+  animation-delay: 1s;
+}
+.glowText {
+  font-size: 100px;
+  animation: glowText 2s ease-in-out infinite;
+}
+@keyframes glowText {
+  from {
+    text-shadow: 0 0 5px white, 0 0 10px pink;
+  }
+  to {
+    text-shadow: 0 0 20px white, 0 0 25px pink;
+  }
+}
+
 /* contact page */
 #c1 {
   background-color: pink;

@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Article;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -105,26 +108,6 @@ class CommentController extends AbstractController
             ->add('Add_Comment', SubmitType::class,)
             ->getForm();
         
-        // //var_dump($form);
-        // //processing form
-        // $form->handleRequest($request);
-        // if($form->isSubmitted() && $form->isValid()){
-
-        //      // $form->getData() holds the submitted values
-        //     // but, the original `$comment` variable has also been updated
-        //     $comment = $form->getData();
-        //     // $entityManager = $this->getDoctrine()->getManager();
-        //     //$comment->setComment('t 1');
-        //     var_dump($comment);
-        //     $entityManager->persist($comment);
-        //     $entityManager->flush();
-            
-        //     //redirect to current page + show flash message
-        //     //$this->addFlash('success', 'Your comment has been added');
-        //     //redirect
-        //     // return $this->redirectToRoute('welcome');
-        // }
-
         // $commentForm = "Comment Form";
         return $this->render('comment/commentForm.html.twig', [
             'comment' => $comment,
@@ -137,19 +120,28 @@ class CommentController extends AbstractController
     /**
      * @Route("comment/delete/{id}", name="delete_comment")
      */
-    public function deleteComment(int $id):Response
+    public function deleteComment( int $id ):Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $comment = $entityManager->getRepository(Comment::class)->find($id);
         var_dump($comment);
         $commentID = $comment->getId();
         $entityManager->remove($comment);
-        //$entityManager->flush();
-
-        //redirect to IndividualComment
-        return $this->redirectToRoute('comment_edit', array('id' => $commentID));
-         //return new Response('You want to delete comment ' .$comment->getId());
-        $this->addFlash('deleted','Your comment was deleted sucessfully');
+        echo "</br></br></br>";
+        $articleId = $comment->getArticleID();
+        //var_dump($articleId);
+        $currentArticle = $entityManager->getRepository(Article::class)->find($articleId);
+        //var_dump($currentArticle);
+        //echo "</br></br></br>";
+        $currentArticleSlug = $currentArticle->getName();
+        //var_dump("Current Article Slug " . $currentArticleSlug);
+        //execute query to DB and DELETE comment 
+        $entityManager->flush();
+        //show confirmation message
+        $this->addFlash('deleted','Your comment was DELETED sucessfully');
+        //redirect to IndividualArticle with list of comments minus deleted one
+        return $this->redirectToRoute('showIndividual', array('id' => $articleId , 'slug' => $currentArticleSlug));
+       
     }
     
 }
