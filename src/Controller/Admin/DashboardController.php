@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\ArticleController;
 use App\Entity\Article;
+use App\Entity\Category;
 
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -24,7 +25,7 @@ class DashboardController extends AbstractDashboardController
         // redirect to some CRUD controller
         $routeBuilder = $this->get(AdminUrlGenerator::class);
 
-        return $this->redirect($routeBuilder->setController(ArticleCrudController::class)->generateUrl());
+        return $this->redirect($routeBuilder->setController(ProductCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
@@ -35,11 +36,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        // skomentowalem yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         return [
                 MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-                //MenuItem::linkToCrud('Article', 'fa fa-file-text', Article::class),
+                MenuItem::section('Menu Items'),
+                MenuItem::linkToCrud('Categories', 'fas fa-album-collection', Category::class),
         ];
     }
 }
